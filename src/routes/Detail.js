@@ -1,8 +1,8 @@
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-import React from "react";
-import { useParams } from "react-router-dom";
-import styled from "styled-components";
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 const GET_MOVIE = gql`
   query getMovie($id: Int!) {
@@ -11,6 +11,10 @@ const GET_MOVIE = gql`
       description_full
       language
       rating
+      medium_cover_image
+    }
+    suggestions(id: $id) {
+      id
       medium_cover_image
     }
   }
@@ -64,19 +68,15 @@ export default () => {
   return (
     <Container>
       <Column>
-        <Title>{loading ? "Loading..." : data.movie.title}</Title>
-        {!loading && data.movie && (
-          <>
-            <Subtitle>
-              {data.movie.language} · {data.movie.rating}
-            </Subtitle>
-            <Description>{data.movie.description_full}</Description>
-          </>
-        )}
+        <Title>{loading ? 'Loading...' : data.movie.title}</Title>
+
+        <Subtitle>
+          {data?.movie?.language} · {data?.movie?.rating}
+        </Subtitle>
+        <Description>{data?.movie?.description_full}</Description>
       </Column>
-      <Poster
-        bg={data && data.movie ? data.movie.medium_cover_image : ""}
-      ></Poster>
+      <Poster bg={data?.movie?.medium_cover_image}></Poster>
+      {/* {data&&data.suggestions&&data.suggestions.map(s=>)} */}
     </Container>
   );
 };

@@ -1,8 +1,8 @@
-import React from "react";
-import { gql } from "apollo-boost";
-import { useQuery } from "@apollo/react-hooks";
-import styled from "styled-components";
-import Movie from "../components/Movie";
+import React from 'react';
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
+import styled from 'styled-components';
+import Movie from '../components/Movie';
 
 const Container = styled.div`
   display: flex;
@@ -67,13 +67,12 @@ export default () => {
         <Subtitle>I love GraphQL</Subtitle>
       </Header>
       {loading && <Loading>Loading...</Loading>}
-      {!loading && data.movies && (
-        <Movies>
-          {data.movies.map((m) => (
-            <Movie key={m.id} id={m.id} {...m} bg={m.medium_cover_image} />
-          ))}
-        </Movies>
-      )}
+
+      <Movies>
+        {data?.movies?.map((m) => (
+          <Movie key={m.id} id={m.id} {...m} bg={m.medium_cover_image} />
+        ))}
+      </Movies>
     </Container>
   );
 };
